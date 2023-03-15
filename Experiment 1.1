@@ -1,6 +1,9 @@
-A)create table EMPLOYEE(emp_id int,name varchar(10),city varchar(20),dob date,adhar_no int);
+A1:-Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
+
+CREATE TABLE EMPLOYEE(emp_id int,name varchar(10),city varchar(20),dob date,adhar_no int);
 Query OK, 0 rows affected (0.29 sec)
-desc EMPLOYEE;
+
+DESC EMPLOYEE;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
@@ -11,3 +14,120 @@ desc EMPLOYEE;
 | adhar_no | int(11)     | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
+A2:- Create a table STUDENT have the fields(roll_no, name, age, address, gender)and add following constraints on it.
+     Roll_no – Primary key
+     Name – does not allow null values
+     Age- must be in between (0-99), does not allow null values
+     Gender- default value is ‘m’
+
+CREATE TABLE STUDENT(roll_no int primary key,name varchar(10) not null,age int check(age<100),address varchar(25),gender char(5));
+Query OK, 0 rows affected (0.30 sec)
+
+DESC STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(10) | NO   |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| gender  | char(5)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+A3:-  Create a temporary table STUDENT1 of STUDENT relation.
+
+CREATE TEMPORARY TABLE STUDENT1 select *from STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+DESC STUDENT1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int(11)     | NO   |     | NULL    |       |
+| name    | varchar(10) | NO   |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| gender  | char(5)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+A4:-Create a duplicate table of EMPLOYEE.
+
+CREATE TABLE if not exists EMPLOYEE_DUPLICATE select * from EMPLOYEE;
+Query OK, 0 rows affected (0.74 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+DESC EMPLOYEE_DUPLICATE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
+| adhar_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+A5:-
+CREATE DATABASE INVOICE;
+Query OK, 1 row affected (0.02 sec)
+
+USE INVOICE;
+Database changed
+
+CREATE TABLE Customer(id int primary key,name varchar(10),address varchar(25), city char(10),ph_no varchar(10));
+Query OK, 0 rows affected (0.47 sec)
+
+DESC Customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| id      | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(10) | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| city    | char(10)    | YES  |     | NULL    |       |
+| ph_no   | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+CREATE TABLE Product(pid int primary key,pname varchar(15),price int default 0);
+Query OK, 0 rows affected (0.32 sec)
+
+ DESC Product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int(11)     | NO   | PRI | NULL    |       |
+| pname | varchar(15) | YES  |     | NULL    |       |
+| price | int(11)     | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+CREATE TABLE Invoice_master(inv_id int primary key,id int,foreign key(id)references Customer(id));
+Query OK, 0 rows affected (0.33 sec)
+
+ DESC Invoice_master;
++--------+---------+------+-----+---------+-------+
+| Field  | Type    | Nu Roll_no – Primary key
+               Name – does not allow null values
+               Age- must be in between (0-99), does not allow null values
+               Gender- default value is ‘m’ll | Key | Default | Extra |
++--------+---------+------+-----+---------+-------+
+| inv_id | int(11) | NO   | PRI | NULL    |       |
+| id     | int(11) | YES  | MUL | NULL    |       |
++--------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
