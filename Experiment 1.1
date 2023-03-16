@@ -35,11 +35,12 @@ mysql> DESC STUDENT;
 +---------+-------------+------+-----+---------+-------+
 | roll_no | int(11)     | NO   | PRI | NULL    |       |
 | name    | varchar(10) | NO   |     | NULL    |       |
-| age     | int(11)     | YES  |     | NULL    |       |
+| age     | int(11)     | NO   |     | NULL    |       |
 | address | varchar(25) | YES  |     | NULL    |       |
-| gender  | char(5)     | YES  |     | NULL    |       |
+| gender  | char(5)     | YES  |     | m       |       |
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
 
 Q3:-  Create a temporary table STUDENT1 of STUDENT relation.
 
@@ -51,13 +52,14 @@ mysql> DESC STUDENT1;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
-| roll_no | int(11)     | NO   |     | NULL    |       |
+| roll_no | int(11)     | NO   | PRI | NULL    |       |
 | name    | varchar(10) | NO   |     | NULL    |       |
-| age     | int(11)     | YES  |     | NULL    |       |
+| age     | int(11)     | NO   |     | NULL    |       |
 | address | varchar(25) | YES  |     | NULL    |       |
-| gender  | char(5)     | YES  |     | NULL    |       |
+| gender  | char(5)     | YES  |     | m       |       |
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
 
 
 Q4:-Create a duplicate table of EMPLOYEE.
@@ -150,7 +152,7 @@ mysql> DESC invoice_item;
 
 PART-B -DDL COMMANDS- ALTER & DROP
 
-Q1:-Add a column ‘SSN’ at the first position in the table EMPLOYEE
+Q1:-Add a column ‘SSN’ at the first position in the table EMPLOYEEDML COMMANDS-INSERT
 
 mysql> ALTER TABLE EMPLOYEE ADD ssn int first;
 Query OK, 0 rows affected (0.60 sec)
@@ -170,6 +172,80 @@ mysql> DESC EMPLOYEE;
 6 rows in set (0.00 sec)
 
 
+Q2:-Change the data type of the column ‘DOB’  in year the table EMPLOYEE  
+
+mysql> ALTER TABLE EMPLOYEE MODIFY dob year;
+Query OK, 0 rows affected (0.77 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ssn      | int(11)     | YES  |     | NULL    |       |
+| emp_id   | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year(4)     | YES  |     | NULL    |       |
+| adhar_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+Q3:- Delete the column ‘emp_id’ the table EMPLOYEE.
+
+mysql> ALTER TABLE EMPLOYEE DROP COLUMN emp_id;
+Query OK, 0 rows affected (0.56 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ssn      | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year(4)     | YES  |     | NULL    |       |
+| adhar_no | int(11)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+Q4:- Add  the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE
+
+mysql> ALTER TABLE EMPLOYEE ADD CONSTRAINT c2 UNIQUE(ssn), ADD CONSTRAINT c3
+UNIQUE(adhar_no);
+Query OK, 0 rows affected (0.44 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ssn      | int(11)     | YES  | UNI | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year(4)     | YES  |     | NULL    |       |
+| adhar_no | int(11)     | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+Q5:-Delete the NULL constraint of ‘age’ in the STUDENT table.
+
+Q6:-Change the table name EMPLOYEE as PERSON
+
+mysql> ALTER TABLE EMPLOYEE RENAME TO PERSON;
+
+mysql> DESC PERSON;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ssn      | int(11)     | YES  | UNI | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | NULL    |       |
+| dob      | year(4)     | YES  |     | NULL    |       |
+| adhar_no | int(11)     | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+Q7:- Delete the table STUDENT1.
 
 
 //VERIFIED
