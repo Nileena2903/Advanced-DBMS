@@ -1,14 +1,14 @@
                              EXPERIMENT 1.1 - Relational database design using MySQL -DDL COMMANDS
                             _______________________________________________________________________
 
-PART-A -DDL COMMANDS-CREATE
+PART-A : DDL COMMANDS-CREATE
 
 Q1:-Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
 
-mysql>CREATE TABLE EMPLOYEE(emp_id int,name varchar(10),city varchar(20),dob date,adhar_no int);
+mysql> CREATE TABLE EMPLOYEE(emp_id int,name varchar(10),city varchar(20),dob date,adhar_no int);
 Query OK, 0 rows affected (0.29 sec)
 
-mysql>DESC EMPLOYEE;
+mysql> DESC EMPLOYEE;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +----------+-------------+------+-----+---------+-------+
@@ -60,8 +60,6 @@ mysql> DESC STUDENT1;
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
-
-
 Q4:-Create a duplicate table of EMPLOYEE.
 
 mysql> CREATE TABLE if not exists EMPLOYEE_DUPLICATE select * from EMPLOYEE;
@@ -87,16 +85,16 @@ Q5:-Create an INVOICE database and having following tables.
     Invoice_master(inv_id, cust_id(FK), inv_date)
     Invoice_item(inv_id (FK),  pid(FK), quantity)
     
-mysql>CREATE DATABASE INVOICE;
+mysql> CREATE DATABASE INVOICE;
 Query OK, 1 row affected (0.02 sec)
 
-mysql>USE INVOICE;
+mysql> USE INVOICE;
 Database changed
 
-mysql>CREATE TABLE Customer(id int primary key,name varchar(10),address varchar(25), city char(10),ph_no varchar(10));
+mysql> CREATE TABLE Customer(id int primary key,name varchar(10),address varchar(25), city char(10),ph_no varchar(10));
 Query OK, 0 rows affected (0.47 sec)
 
-mysql>DESC Customer;
+mysql> DESC Customer;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -126,10 +124,7 @@ Query OK, 0 rows affected (0.33 sec)
 
 mysql> DESC Invoice_master;
 +--------+---------+------+-----+---------+-------+
-| Field  | Type    | Nu Roll_no – Primary key
-               Name – does not allow null values
-               Age- must be in between (0-99), does not allow null values
-               Gender- default value is ‘m’ll | Key | Default | Extra |
+| Field  | Type    | Null | Key | Default | Extra |
 +--------+---------+------+-----+---------+-------+
 | inv_id | int(11) | NO   | PRI | NULL    |       |
 | id     | int(11) | YES  | MUL | NULL    |       |
@@ -150,7 +145,7 @@ mysql> DESC invoice_item;
 3 rows in set (0.00 sec)
 
 
-PART-B -DDL COMMANDS- ALTER & DROP
+PART-B : DDL COMMANDS- ALTER & DROP
 
 Q1:-Add a column ‘SSN’ at the first position in the table EMPLOYEEDML COMMANDS-INSERT
 
@@ -230,6 +225,23 @@ mysql> DESC EMPLOYEE;
 
 Q5:-Delete the NULL constraint of ‘age’ in the STUDENT table.
 
+mysql> ALTER TABLE STUDENT MODIFY age int NULL;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| roll_no | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(10) | NO   |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
+| gender  | char(5)     | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
 Q6:-Change the table name EMPLOYEE as PERSON
 
 mysql> ALTER TABLE EMPLOYEE RENAME TO PERSON;
@@ -245,7 +257,14 @@ mysql> DESC PERSON;
 | adhar_no | int(11)     | YES  | UNI | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
-Q7:- Delete the table STUDENT1.
+
+Q7:- Delete the duplicate table of EMPLOYEE.
+
+mysql> DROP TABLE EMPLOYEE_DUP;
+Query OK, 0 rows affected (0.20 sec)
+
+mysql> DESC EMPLOYEE_DUP;
+ERROR 1146 (42S02): Table 'NILEENA.EMPLOYEE_DUP' doesn't exist
 
 
 //VERIFIED
