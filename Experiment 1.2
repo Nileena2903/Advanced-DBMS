@@ -167,7 +167,85 @@ mysql> select * from Product;
 +-----+----------+-------+
 7 rows in set (0.00 sec)
 
-  
+:-insert values  in Invoice_master table
+
+mysql> insert into Invoice_master values(501,1001,'2022-03-26');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Invoice_master values(502,1001,'2022-02-27');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Invoice_master values(503,1003,'2022-03-27');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Invoice_master values(504,1005,'2022-03-18');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Invoice_master values(505,1005,'2022-02-18');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Invoice_master values(506,1007,'2022-03-05');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Invoice_master values(507,1007,'2022-03-05');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Invoice_master values(508,1007,'2022-03-05');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
+|    506 | 1007 | 2022-03-05 |
+|    507 | 1007 | 2022-03-05 |
+|    508 | 1007 | 2022-03-05 |
++--------+------+------------+
+8 rows in set (0.00 sec)
+
+:-insert values in invoice_item table
+
+mysql> insert into invoice_item values(501,113,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into invoice_item values(501,112,3);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into invoice_item values(504,112,1);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into invoice_item values(506,115,2);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into invoice_item values(507,115,1);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into invoice_item values(505,116,4);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into invoice_item values(505,113,1);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        1 |
+|    506 |  115 |        2 |
+|    507 |  115 |        1 |
+|    505 |  116 |        4 |
+|    505 |  113 |        1 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
+
 
  
  
