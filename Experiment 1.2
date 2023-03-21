@@ -3,6 +3,170 @@
   
   PART-A : DML COMMANDS-INSERT
   
+  Q1:Insert values in EMPLOYEE table.
+
+mysql> INSERT INTO EMPLOYEE VALUES(100,'sreya','thrissur','2000-05-09',243671);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(101,'akshay','kozhikode','2001-03-18',233345);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(102,'jyothis','kannur','2000-08-06',276835);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(103,'nilina','kannur','2001-03-29',366835);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(104,'sreyas','wayanad','2000-02-22',367535);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(105,'nihitha','wayanad','2000-12-29',367435); 
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(106,'janaki','kozhikode','2002-10-12',667435);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from EMPLOYEE;
++--------+---------+-----------+------------+----------+
+| emp_id | name    | city      | dob        | adhar_no |
++--------+---------+-----------+------------+----------+
+|    100 | sreya   | thrissur  | 2000-05-09 |   243671 |
+|    101 | akshay  | kozhikode | 2001-03-18 |   233345 |
+|    102 | jyothis | kannur    | 2000-08-06 |   276835 |
+|    103 | nilina  | kannur    | 2001-03-29 |   366835 |
+|    104 | sreyas  | wayanad   | 2000-02-22 |   367535 |
+|    105 | nihitha | wayanad   | 2000-12-29 |   367435 |
+|    106 | janaki  | kozhikode | 2002-10-12 |   667435 |
++--------+---------+-----------+------------+----------+
+7 rows in set (0.01 sec)
+
+Q2: Insert values in STUDENT table.
+
+mysql> INSERT INTO STUDENT VALUES(10,'janaki',21,'kozhikode','f');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO STUDENT VALUES(11,'kajal',22,'palakkad','f');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES(12,'levin',21,'kannur','m');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES(13,'liya',21,'pallikunn','f');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENT VALUES(14,'nilina',23,'iritty','f');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO STUDENT VALUES(15,'sourav',23,'chelakkad','m');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES(16,'tansir',22,'vatakara','m');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from STUDENT;
++---------+--------+------+-----------+--------+
+| roll_no | name   | age  | address   | gender |
++---------+--------+------+-----------+--------+
+|      10 | janaki |   21 | kozhikode | f      |
+|      11 | kajal  |   22 | palakkad  | f      |
+|      12 | levin  |   21 | kannur    | m      |
+|      13 | liya   |   21 | pallikunn | f      |
+|      14 | nilina |   23 | iritty    | f      |
+|      15 | sourav |   23 | chelakkad | m      |
+|      16 | tansir |   22 | vatakara  | m      |
++---------+--------+------+-----------+--------+
+7 rows in set (0.00 sec)
+
+Q3:Insert values in INVOICE database. 
+
+use INVOICE;
+
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_INVOICE  |
++--------------------+
+| Customer           |
+| Invoice_master     |
+| Product            |
+| invoice_item       |
++--------------------+
+4 rows in set (0.00 sec)
+
+:-insert values in Customer table
+
+mysql> INSERT INTO Customer VALUES(1001,'tansir','kolaayil(H)','kannur',9293947481);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Customer VALUES(1002,'nilina','aanaparayil(H)','calicut',9593946481);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(1003,'manu','thottathil(H)','kasargod',9593946435);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO Customer VALUES(1004,'jyothis','mangalasseri(H)','palakkad',9273946435);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(1005,'sekhar','thekkeparambil(H)','kottayam',9273946430);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(1006,'sreedevi','madampalli(H)','kottayam',9273446
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Customer VALUES(1007,'asokan','thaiparambil(H)','alapuzha',9240568316);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from Customer;
++------+----------+-------------------+----------+------------+
+| id   | name     | address           | city     | ph_no      |
++------+----------+-------------------+----------+------------+
+| 1001 | tansir   | kolaayil(H)       | kannur   | 9293947481 |
+| 1002 | nilina   | aanaparayil(H)    | calicut  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | palakkad | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam | 9273946430 |
+| 1006 | sreedevi | madampalli(H)     | kottayam | 9273446430 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha | 9240568316 |
++------+----------+-------------------+----------+------------+
+7 rows in set (0.00 sec)
+
+:-insert values in Product table
+
+mysql> INSERT INTO Product VALUES(111,'soap',65);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Product VALUES(112,'shampoo',200);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO Product VALUES(113,'knife',400);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Product VALUES(114,'Book',225);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO Product VALUES(115,'pen',15);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO Product VALUES(116,'lipstick',399);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO Product VALUES(117,'Bag',699);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    65 |
+| 112 | shampoo  |   200 |
+| 113 | knife    |   400 |
+| 114 | Book     |   225 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   399 |
+| 117 | Bag      |   699 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
   
 
  
