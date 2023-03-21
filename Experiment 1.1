@@ -119,17 +119,19 @@ mysql> DESC Product;
 +-------+-------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 
-mysql> CREATE TABLE Invoice_master(inv_id int primary key,id int,foreign key(id)references Customer(id));
+mysql> CREATE TABLE Invoice_master(inv_id int primary key,id int,inv_date date,foreign key(id)references Customer(id));
 Query OK, 0 rows affected (0.33 sec)
 
 mysql> DESC Invoice_master;
-+--------+---------+------+-----+---------+-------+
-| Field  | Type    | Null | Key | Default | Extra |
-+--------+---------+------+-----+---------+-------+
-| inv_id | int(11) | NO   | PRI | NULL    |       |
-| id     | int(11) | YES  | MUL | NULL    |       |
-+--------+---------+------+-----+---------+-------+
-2 rows in set (0.00 sec)
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| inv_id   | int(11) | NO   | PRI | NULL    |       |
+| id       | int(11) | YES  | MUL | NULL    |       |
+| inv_date | date    | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
 
 mysql> CREATE TABLE Invoice_item(inv_id int,pid int,quantity int,foreign key(inv_id) references Invoice_master(inv_id),foreign key(pid) references Product(pid));
 Query OK, 0 rows affected (0.38 sec)
