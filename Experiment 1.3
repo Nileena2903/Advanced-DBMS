@@ -11,20 +11,20 @@ Empty set (0.00 sec)
 mysql> insert into BOOK values(100,'half girlfriend',525);
 Query OK, 1 row affected (0.06 sec)
 
-mysql> insert into BOOK values(101,'rainy day',400);
-Query OK, 1 row affected (0.05 sec)
-
-mysql> commit;
+mysql> set autocommit=off;
 Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into BOOK values(101,'rainy day',400);
+Query OK, 1 row affected (0.00 sec)
 
 mysql> select *from BOOK;
 +------+-----------------+-------+
 | b_no | b_name          | price |
 +------+-----------------+-------+
 |  100 | half girlfriend |   525 |
-|  101 | rainy day       |   400 |
 +------+-----------------+-------+
-2 rows in set (0.00 sec)
+1 row in set (0.00 sec)
+
 
 
 Q2:-Rollback
