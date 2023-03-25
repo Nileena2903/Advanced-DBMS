@@ -3,7 +3,7 @@
                               
 PART-A: TCL COMMANDS
 
-Q1:-Commit
+Q1:-COMMIT 
 
 mysql> select *from BOOK;
 Empty set (0.00 sec)
@@ -11,7 +11,7 @@ Empty set (0.00 sec)
 mysql> insert into BOOK values(100,'half girlfriend',525);
 Query OK, 1 row affected (0.06 sec)
 
-mysql> set autocommit=off;
+mysql> SET AUTOCOMMIT=OFF;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> insert into BOOK values(101,'rainy day',400);
@@ -25,13 +25,54 @@ mysql> select *from BOOK;
 +------+-----------------+-------+
 1 row in set (0.00 sec)
 
+mysql> insert into BOOK values(101,'secret',780);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into BOOK values(102,'Alone',600);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from BOOK;
++------+-----------------+-------+
+| b_no | b_name          | price |
++------+-----------------+-------+
+|  100 | half girlfriend |   525 |
+|  101 | secret          |   780 |
+|  102 | Alone           |   600 |
++------+-----------------+-------+
+3 rows in set (0.00 sec)
 
 
-Q2:-Rollback
+Q2:-ROLLBACK
+
+mysql> DELETE from BOOK where b_no=100;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from BOOK;
++------+--------+-------+
+| b_no | b_name | price |
++------+--------+-------+
+|  101 | secret |   780 |
+|  102 | Alone  |   600 |
++------+--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select *from BOOK;
++------+-----------------+-------+
+| b_no | b_name          | price |
++------+-----------------+-------+
+|  100 | half girlfriend |   525 |
+|  101 | secret          |   780 |
+|  102 | Alone           |   600 |
++------+-----------------+-------+
+3 rows in set (0.00 sec)
 
 
-
-
-Q3:-Savepoint
+Q3:-SAVEPOINT
 
 
