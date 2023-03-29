@@ -3,6 +3,7 @@
                               
 PART-A: TCL COMMANDS
 
+
 Q1:-COMMIT 
 
 mysql> select *from BOOK;
@@ -47,6 +48,7 @@ mysql> select * from BOOK;
 
 Q2:-ROLLBACK
 
+
 mysql> DELETE from BOOK where b_no=100;
 Query OK, 1 row affected (0.00 sec)
 
@@ -74,5 +76,69 @@ mysql> select *from BOOK;
 
 
 Q3:-SAVEPOINT
+
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into BOOK values(103,'Dark',410);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM BOOK;
++------+-----------------+-------+
+| b_no | b_name          | price |
++------+-----------------+-------+
+|  100 | half girlfriend |   525 |
+|  101 | secret          |   780 |
+|  102 | Alone           |   600 |
+|  103 | Dark            |   410 |
++------+-----------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SAVEPOINT S1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into BOOK values(104,'Second Chance',750);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into BOOK values(105,'shades',1030);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM BOOK;
++------+-----------------+-------+
+| b_no | b_name          | price |
++------+-----------------+-------+
+|  100 | half girlfriend |   525 |
+|  101 | secret          |   780 |
+|  102 | Alone           |   600 |
+|  103 | Dark            |   410 |
+|  104 | Second Chance   |   750 |
+|  105 | shades          |  1030 |
++------+-----------------+-------+
+6 rows in set (0.00 sec)
+
+mysql> SAVEPOINT S2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into BOOK values(106,'Adventure',650);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> ROLLBACK TO S1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM BOOK;
++------+-----------------+-------+
+| b_no | b_name          | price |
++------+-----------------+-------+
+|  100 | half girlfriend |   525 |
+|  101 | secret          |   780 |
+|  102 | Alone           |   600 |
+|  103 | Dark            |   410 |
++------+-----------------+-------+
+4 rows in set (0.00 sec)
+
 
 
