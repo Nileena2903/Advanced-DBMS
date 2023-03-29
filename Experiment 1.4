@@ -1,0 +1,155 @@
+                    Experiment No: 1.4 ACCESSING DATABASE:  (SELECT, Filtering using WHERE, HAVING,  ORDER BY Clauses)
+                    ___________________________________________________________________________________________________
+                    
+Q1:- List all customer details.
+
+mysql> select * from Customer;
++------+---------+-------------------+-----------+------------+
+| id   | name    | address           | city      | ph_no      |
++------+---------+-------------------+-----------+------------+
+| 1001 | Ayisha  | arayckal          | payyannur | 9293947481 |
+| 1002 | nilina  | aanaparayil(H)    | kozhikode | 9593946481 |
+| 1003 | manu    | thottathil(H)     | kasargod  | 9593946435 |
+| 1004 | jyothis | mangalasseri(H)   | palakkad  | 9273946435 |
+| 1005 | sekhar  | thekkeparambil(H) | kottayam  | 9273946430 |
+| 1007 | asokan  | thaiparambil(H)   | alapuzha  | 9984269227 |
++------+---------+-------------------+-----------+------------+
+6 rows in set (0.00 sec)
+
+Q2:- List pname, price of all products.
+
+mysql> select pname,price from Product;
++----------+-------+
+| pname    | price |
++----------+-------+
+| soap     |    66 |
+| shampoo  |   204 |
+| knife    |   408 |
+| Book     |    51 |
+| pen      |    15 |
+| lipstick |   407 |
+| Bag      |   713 |
++----------+-------+
+7 rows in set (0.00 sec)
+
+Q3:- List all invoice items, avoid duplicates.
+
+
+
+
+Q4:- List product price between 10rs and 150rs
+
+mysql> select * from  Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from  Product where price>=10 and price<=150;
++-----+-------+-------+
+| pid | pname | price |
++-----+-------+-------+
+| 111 | soap  |    66 |
+| 114 | Book  |    51 |
+| 115 | pen   |    15 |
++-----+-------+-------+
+3 rows in set (0.00 sec)
+
+
+Q5:- List the customer details who lives in ‘ekm’,’tvm’.
+
+mysql> select * from Customer;
++------+---------+-------------------+-------------+------------+
+| id   | name    | address           | city        | ph_no      |
++------+---------+-------------------+-------------+------------+
+| 1001 | Ayisha  | arayckal          | payyannur   | 9293947481 |
+| 1002 | nilina  | aanaparayil(H)    | ernakulam   | 9593946481 |
+| 1003 | manu    | thottathil(H)     | kasargod    | 9593946435 |
+| 1004 | jyothis | mangalasseri(H)   | trivandrome | 9273946435 |
+| 1005 | sekhar  | thekkeparambil(H) | kottayam    | 9273946430 |
+| 1007 | asokan  | thaiparambil(H)   | alapuzha    | 9984269227 |
++------+---------+-------------------+-------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Customer HAVING city='ernakulam' or city='trivandrome';
++------+---------+-----------------+-------------+------------+
+| id   | name    | address         | city        | ph_no      |
++------+---------+-----------------+-------------+------------+
+| 1002 | nilina  | aanaparayil(H)  | ernakulam   | 9593946481 |
+| 1004 | jyothis | mangalasseri(H) | trivandrome | 9273946435 |
++------+---------+-----------------+-------------+------------+
+2 rows in set (0.00 sec)
+
+
+Q6:- List the invoice details from 1st January 2022 to 28th February 2022
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master where inv_date BETWEEN '2022-01-01' and '2022-02-28';
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    502 | 1001 | 2022-02-27 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+2 rows in set (0.00 sec)
+
+
+Q7:- List the customer details who not live in ‘tvm’.
+
+mysql> select * from Customer;
++------+---------+-------------------+-------------+------------+
+| id   | name    | address           | city        | ph_no      |
++------+---------+-------------------+-------------+------------+
+| 1001 | Ayisha  | arayckal          | payyannur   | 9293947481 |
+| 1002 | nilina  | aanaparayil(H)    | trivandrome | 9593946481 |
+| 1003 | manu    | thottathil(H)     | kasargod    | 9593946435 |
+| 1004 | jyothis | mangalasseri(H)   | trivandrome | 9273946435 |
+| 1005 | sekhar  | thekkeparambil(H) | trivandrome | 9273946430 |
+| 1007 | asokan  | thaiparambil(H)   | alapuzha    | 9984269227 |
++------+---------+-------------------+-------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from Customer where city!='trivandrome';
++------+--------+-----------------+-----------+------------+
+| id   | name   | address         | city      | ph_no      |
++------+--------+-----------------+-----------+------------+
+| 1001 | Ayisha | arayckal        | payyannur | 9293947481 |
+| 1003 | manu   | thottathil(H)   | kasargod  | 9593946435 |
+| 1007 | asokan | thaiparambil(H) | alapuzha  | 9984269227 |
++------+--------+-----------------+-----------+------------+
+3 rows in set (0.00 sec)
+
+Q8:- List the customers who have no phone number.
+
+
+
+Q9:- Display customer names in descending order.
+
+
+Q10:- Display the customer details sorted in ascending by city and descending by names.
+
+
+11. Find the customer names start with ‘A’.
+12. Find the customer names who have ‘e’ or ‘a’ in them.
+13. Find the customer names who have at least 3 characters.
+14. List the names of customers their names have ‘r’ in second position.
+15. Find the customer names start with ‘a’ and are at least 3 characters in length.
