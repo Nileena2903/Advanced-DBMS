@@ -34,7 +34,26 @@ mysql> select pname,price from Product;
 
 Q3:- List all invoice items, avoid duplicates.
 
+mysql> SELECT * FROM invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
 
+mysql> select DISTINCT inv_id from invoice_item;
++--------+
+| inv_id |
++--------+
+|    501 |
+|    504 |
+|    505 |
++--------+
+3 rows in set (0.01 sec)
 
 
 Q4:- List product price between 10rs and 150rs
@@ -140,16 +159,136 @@ mysql> select * from Customer where city!='trivandrome';
 
 Q8:- List the customers who have no phone number.
 
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nilina   | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+8 rows in set (0.00 sec)
 
+mysql> select * from Customer HAVING ph_no is null;
++------+----------+---------------+-----------+-------+
+| id   | name     | address       | city      | ph_no |
++------+----------+---------------+-----------+-------+
+| 1008 | nadiya   | kayyalath(H)  | kannur    | NULL  |
+| 1009 | kochunni | kayamkulam(H) | aalapuzha | NULL  |
++------+----------+---------------+-----------+-------+
+2 rows in set (0.01 sec)
 
 Q9:- Display customer names in descending order.
 
+mysql> select name from Customer ORDER BY name desc;
++----------+
+| name     |
++----------+
+| sekhar   |
+| nilina   |
+| nadiya   |
+| manu     |
+| kochunni |
+| jyothis  |
+| Ayisha   |
+| asokan   |
++----------+
+8 rows in set (0.00 sec)
 
 Q10:- Display the customer details sorted in ascending by city and descending by names.
 
+mysql> SELECT * FROM Customer ORDER BY city ASC, name DESC;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
 
-11. Find the customer names start with ‘A’.
-12. Find the customer names who have ‘e’ or ‘a’ in them.
-13. Find the customer names who have at least 3 characters.
-14. List the names of customers their names have ‘r’ in second position. 
-15. Find the customer names start with ‘a’ and are at least 3 characters in length.
+
+Q11:- Find the customer names start with ‘A’.
+
+mysql> select name from Customer where name LIKE 'A%';
++--------+
+| name   |
++--------+
+| Ayisha |
+| asokan |
++--------+
+
+Q12:- Find the customer names who have ‘n’ or ‘i’ in them.
+
+mysql> select name from Customer where name LIKE '%n%' or '%i%';
++----------+
+| name     |
++----------+
+| nilina   |
+| manu     |
+| asokan   |
+| nadiya   |
+| kochunni |
++----------+
+
+Q13:- Find the customer names who have at least 7 characters.
+
+mysql> select name from Customer where name LIKE '_______%';
++----------+
+| name     |
++----------+
+| jyothis  |
+| kochunni |
++----------+
+2 rows in set (0.00 sec)
+
+Q14:- List the names of customers their names have ‘a’ in second position. 
+
+mysql> select name from Customer where name LIKE '_a%';
++--------+
+| name   |
++--------+
+| manu   |
+| nadiya |
++--------+
+2 rows in set (0.00 sec)
+
+
+Q15:- Find the customer names start with ‘n’ and are at least 6 characters in length.
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select name from Customer where name LIKE 'n_____%';
++---------+
+| name    |
++---------+
+| nileena |
+| nadiya  |
++---------+
+2 rows in set (0.00 sec)
+
