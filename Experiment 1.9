@@ -1,3 +1,116 @@
                           EXPERIMENT NO: 1.9	OPTIMIZING DATABASE: (Using Set, arithmetic, logical and special operators)
                          __________________________________________________________________________________________________
 
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+______________________________________________________________________________________________________________________________________________________
+
+Q1:- Display customer_id, city  who lives either in ‘kozhikode’ or in ‘trivandrome’
+
+mysql> select id,city from Customer where city ="kozhikode" or  city ="trivandome";
++------+------------+
+| id   | city       |
++------+------------+
+| 1004 | trivandome |
+| 1006 | kozhikode  |
++------+------------+
+2 rows in set (0.00 sec)
+
+
+Q2:- Display product details with an updated price amount(new price= old price+5rs)
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+mysql> update Product set price=price+5;
+Query OK, 7 rows affected (0.04 sec)
+Rows matched: 7  Changed: 7  Warnings: 0
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    71 |
+| 112 | shampoo  |   209 |
+| 113 | knife    |   413 |
+| 114 | Book     |    56 |
+| 115 | pen      |    20 |
+| 116 | lipstick |   412 |
+| 117 | Bag      |   718 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+Q3:- Display customer details who doesn’t have phone number and lives in ‘alapuzha’ city (use logical operators)
+
+
+mysql> select * from Customer where ph_no is null and city="alapuzha";
++------+----------+---------------+----------+-------+
+| id   | name     | address       | city     | ph_no |
++------+----------+---------------+----------+-------+
+| 1009 | kochunni | kayamkulam(H) | alapuzha | NULL  |
++------+----------+---------------+----------+-------+
+1 row in set (0.00 sec)
+
+
+Q4:- List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
+
+mysql> select pname from Product where pid in(select pid from invoice_item where quantity=3);
++---------+
+| pname   |
++---------+
+| shampoo |
++---------+
+1 row in set (0.00 sec)
+
