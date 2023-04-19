@@ -1,2 +1,355 @@
                                              EXPERIMENT NO: 1.5 - ACCESSING DATABASE:  (SUBQUERY)
                                            __________________________________________________________
+ ACCESSING DATABASE: (SUBQUERY)
+
+
+
+Q1:- List the customer names of invoice date 27th march 2023.
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select name from Customer where id in(select id from Invoice_master
+    -> where inv_date='2022-03-27');
++------+
+| name |
++------+
+| manu |
++------+
+1 row in set (0.02 sec)
+
+
+Q2:- List the product name and price of each invoice item.
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select pname,price from Product where pid in(select pid from invoice_item);
++----------+-------+
+| pname    | price |
++----------+-------+
+| shampoo  |   204 |
+| knife    |   408 |
+| lipstick |   407 |
++----------+-------+
+3 rows in set (0.00 sec)
+
+
+Q3:- List the product names, only include their purchased quantity more than 3.
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select pname from Product where pid in(select pid from invoice_item where quantity>3);
++----------+
+| pname    |
++----------+
+| shampoo  |
+| lipstick |
++----------+
+2 rows in set (0.00 sec)
+
+
+Q4:- Find the product that has no sale.
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from Product where pid not in(select pid from invoice_item);
++-----+-------+-------+
+| pid | pname | price |
++-----+-------+-------+
+| 111 | soap  |    66 |
+| 114 | Book  |    51 |
+| 115 | pen   |    15 |
+| 117 | Bag   |   713 |
++-----+-------+-------+
+4 rows in set (0.02 sec)
+
+
+Q5:- List the customer names who purchased the items ‘shampoo’ and ‘lipstick’.
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select name from Customer where id in (select id from Invoice_master
+    -> where inv_id in (select inv_id from invoice_item
+    -> where pid in (select pid from Product
+    -> where pname='shampoo' OR  (select pid from Product where pname ='lipstick'))));
++--------+
+| name   |
++--------+
+| Ayisha |
+| sekhar |
++--------+
+2 rows in set (0.00 sec)
+
+
+Q6:- Display the purchased product details of the customer ’Aayisha’.
+
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> select * from Product where pid in(select pid from invoice_item
+    -> where inv_id in(select inv_id from Invoice_master
+    -> where id in(select id from Customer where name ='Ayisha')));
++-----+---------+-------+
+| pid | pname   | price |
++-----+---------+-------+
+| 113 | knife   |   408 |
+| 112 | shampoo |   204 |
++-----+---------+-------+
+2 rows in set (0.00 sec)
+
+
+Q7:- List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | payyannur  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | kasargod   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | aalapuzha  | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct name from Customer where id in (select id from Invoice_master
+    -> where inv_id in (select inv_id from invoice_item
+    -> group by inv_id having count(*)>1));
++--------+
+| name   |
++--------+
+| Ayisha |
++--------+
+1 row in set (0.00 sec)
+
+
