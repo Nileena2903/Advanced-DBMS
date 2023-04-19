@@ -1,5 +1,126 @@
                                  EXPERIMENT NO: 1.7 OPTIMIZING DATABASE:  (GROUP BY, AGGREGATE FUNCTIONS)
                                 _________________________________________________________________________
+
+
+Q1:- List product name, price except soap on price order.
+
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select pname,price from Product where pname!='soap' order by price;
++----------+-------+
+| pname    | price |
++----------+-------+
+| pen      |    15 |
+| Book     |    51 |
+| shampoo  |   204 |
+| lipstick |   407 |
+| knife    |   408 |
+| Bag      |   713 |
++----------+-------+
+6 rows in set (0.00 sec)
+
+
+Q2:- Find minimum, maximum and average price of products.
+
+
+mysql> select min(price),max(price),avg(price) from Product;
++------------+------------+------------+
+| min(price) | max(price) | avg(price) |
++------------+------------+------------+
+|         15 |        713 |   266.2857 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+
+Q3:- Find number of customers in each city.
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select city,count(id) from Customer group by city;
++------------+-----------+
+| city       | count(id) |
++------------+-----------+
+| alapuzha   |         3 |
+| ernakulam  |         1 |
+| kannur     |         1 |
+| kottayam   |         2 |
+| kozhikode  |         1 |
+| trivandome |         1 |
++------------+-----------+
+6 rows in set (0.01 sec)
+
+
+Q4:- Find number of customers in each city, only include city with more than 2 customers.
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select count(*),city from Customer group by city having count(*)>2;
++----------+----------+
+| count(*) | city     |
++----------+----------+
+|        3 | alapuzha |
++----------+----------+
+1 row in set (0.00 sec)
+
+
+Q5:- Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+
+
+mysql> select concat(name, " Lives in ", city) as customer_info from Customer;
++-----------------------------+
+| customer_info               |
++-----------------------------+
+| Ayisha Lives in kottayam    |
+| nileena Lives in ernakulam  |
+| manu Lives in alapuzha      |
+| jyothis Lives in trivandome |
+| sekhar Lives in kottayam    |
+| neenu Lives in kozhikode    |
+| asokan Lives in alapuzha    |
+| nadiya Lives in kannur      |
+| kochunni Lives in alapuzha  |
++-----------------------------+
+9 rows in set (0.00 sec)
+
                                               
-                                              
-                                              
+                                             
