@@ -1,2 +1,127 @@
                                                 EXPERIMENT NO: 1.8 OPTIMIZING DATABASE: (JOINS)
                                                __________________________________________________
+
+
+mysql> select * from Customer;
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> select * from Invoice_master;
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+mysql> select * from Product;
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    66 |
+| 112 | shampoo  |   204 |
+| 113 | knife    |   408 |
+| 114 | Book     |    51 |
+| 115 | pen      |    15 |
+| 116 | lipstick |   407 |
+| 117 | Bag      |   713 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+_______________________________________________________________________________________________________________________________________________________
+
+Q1:- List the product name and quantity of invoice items.
+
+mysql> select Product.pname,invoice_item.quantity from Product
+    -> INNER JOIN invoice_item on Product.pid=invoice_item.pid;
++----------+----------+
+| pname    | quantity |
++----------+----------+
+| knife    |        2 |
+| shampoo  |        3 |
+| shampoo  |        5 |
+| lipstick |        4 |
++----------+----------+
+4 rows in set (0.00 sec)
+
+
+Q2:- Display invoice details of the transaction dated ’18-02-2022’.
+
+mysql> select Customer.name,Product.pname,Product.price,Invoice_master.inv_id,Invoice_master.inv_date,invoice_item.quantity from Customer
+    -> INNER JOIN Invoice_master on Customer.id=Invoice_master.id
+    -> INNER JOIN invoice_item on Invoice_master.inv_id=invoice_item.inv_id
+    -> INNER JOIN Product on Product.pid=invoice_item.pid where inv_date='2022-02-18';
++--------+----------+-------+--------+------------+----------+
+| name   | pname    | price | inv_id | inv_date   | quantity |
++--------+----------+-------+--------+------------+----------+
+| sekhar | lipstick |   407 |    505 | 2022-02-18 |        4 |
++--------+----------+-------+--------+------------+----------+
+1 row in set (0.00 sec)
+
+
+
+Q3:- Display the customer name, product name, invoice date of purchased item ‘knife’.
+
+mysql> select Customer.name,Product.pname,Invoice_master.inv_date from Customer 
+    -> INNER JOIN Invoice_master on Customer.id=Invoice_master.id 
+    -> INNER JOIN invoice_item on Invoice_master.inv_id=invoice_item.inv_id
+    -> INNER JOIN Product on Product.pid=invoice_item.pid where pname='knife';
++--------+-------+------------+
+| name   | pname | inv_date   |
++--------+-------+------------+
+| Ayisha | knife | 2022-03-26 |
++--------+-------+------------+
+1 row in set (0.00 sec)
+
+
+Q4:- Display all customer details and invoice details must include customer has not purchased items.
+
+
+mysql> select Customer.name,Product.pname,Invoice_master.inv_id,Invoice_master.inv_date FROM Customer
+    -> LEFT JOIN Invoice_master on Customer.id=Invoice_master.id
+    -> LEFT JOIN invoice_item on Invoice_master.inv_id=invoice_item.inv_id
+    -> LEFT JOIN Product on Product.pid=invoice_item.pid;
++----------+----------+--------+------------+
+| name     | pname    | inv_id | inv_date   |
++----------+----------+--------+------------+
+| Ayisha   | knife    |    501 | 2022-03-26 |
+| Ayisha   | shampoo  |    501 | 2022-03-26 |
+| sekhar   | shampoo  |    504 | 2022-03-18 |
+| sekhar   | lipstick |    505 | 2022-02-18 |
+| Ayisha   | NULL     |    502 | 2022-02-27 |
+| manu     | NULL     |    503 | 2022-03-27 |
+| nileena  | NULL     |   NULL | NULL       |
+| jyothis  | NULL     |   NULL | NULL       |
+| neenu    | NULL     |   NULL | NULL       |
+| asokan   | NULL     |   NULL | NULL       |
+| nadiya   | NULL     |   NULL | NULL       |
+| kochunni | NULL     |   NULL | NULL       |
++----------+----------+--------+------------+
+12 rows in set (0.00 sec)
