@@ -1,2 +1,38 @@
                                             EXPERIMENT NO: 1.6 ACCESSING DATABASES: (VIEWS)
                                          _______________________________________________________
+
+Q1:- Create a view for customers who have purchased products.
+
+mysql> create view customer_view as select name from Customer where id in(select id from Invoice_master);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select *  from customer_view;
++--------+
+| name   |
++--------+
+| Ayisha |
+| manu   |
+| sekhar |
++--------+
+3 rows in set (0.00 sec)
+
+
+Q2:- Create a view for invoice products[cust_name, , inv_id, product_id, quantity]
+
+mysql>  create view invoice_product as select Customer.name,Invoice_master.inv_id,Product.pid,invoice_item.quantity from Customer
+    -> INNER JOIN Invoice_master on Customer.id=Invoice_master.id
+    -> INNER JOIN invoice_item on Invoice_master.inv_id=invoice_item.inv_id
+    -> INNER JOIN Product on Product.pid=invoice_item.pid;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from invoice_product;
++--------+--------+-----+----------+
+| name   | inv_id | pid | quantity |
++--------+--------+-----+----------+
+| Ayisha |    501 | 113 |        2 |
+| Ayisha |    501 | 112 |        3 |
+| sekhar |    504 | 112 |        5 |
+| sekhar |    505 | 116 |        4 |
++--------+--------+-----+----------+
+4 rows in set (0.01 sec)
+
