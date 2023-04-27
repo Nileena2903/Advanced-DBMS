@@ -2,3 +2,122 @@
                                       ___________________________________________________________
 
 
+Q1:- Create a procedure to display all tables in the invoice database.
+
+mysql> delimiter //
+mysql> create procedure invoice_tables()
+    -> begin
+    -> select * from Customer;
+    -> select * from Product;
+    -> select * from invoice_item;
+    -> select * from Invoice_master;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call invoice_tables()//
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    71 |
+| 112 | shampoo  |   209 |
+| 113 | knife    |   413 |
+| 114 | Book     |    56 |
+| 115 | pen      |    20 |
+| 116 | lipstick |   412 |
+| 117 | Bag      |   718 |
++-----+----------+-------+
+7 rows in set (0.00 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|    501 |  113 |        2 |
+|    501 |  112 |        3 |
+|    504 |  112 |        5 |
+|    505 |  116 |        4 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
++--------+------+------------+
+| inv_id | id   | inv_date   |
++--------+------+------------+
+|    501 | 1001 | 2022-03-26 |
+|    502 | 1001 | 2022-02-27 |
+|    503 | 1003 | 2022-03-27 |
+|    504 | 1005 | 2022-03-18 |
+|    505 | 1005 | 2022-02-18 |
++--------+------+------------+
+5 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+Q2:- Create a procedure to find greatest of 3 numbers.
+
+
+mysql> delimiter ##
+mysql> create procedure greatest(a int,b int,c int)
+    -> begin
+    -> if(a>b) and (a>c) then
+    -> select a as 'GREATEST';
+    -> elseif(b>a) and (b>c) then
+    -> select b as 'GREATEST';
+    -> else
+    -> select c as 'GREATEST';
+    -> end if;
+    -> end ##
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call greatest(-45,78,95)##
++----------+
+| GREATEST |
++----------+
+|       95 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+Q3:- Create a procedure to display invoice details of a particular customer.
+
+
+mysql> delimiter !!
+mysql> create procedure cust_details(a varchar(30))
+    -> begin
+    -> select Customer.name,Invoice_master.*,Product.pname,invoice_item.quantity 
+    -> from invoice_item INNER JOIN Invoice_master on Invoice_master.inv_id=invoice_item.inv_id
+    -> INNER JOIN Product on Product.pid=invoice_item.pid
+    -> INNER JOIN Customer on Customer.id=Invoice_master.id 
+    -> where Customer.name=a;
+    -> end
+    -> !!
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call cust_details('sekhar')!!
++--------+--------+------+------------+----------+----------+
+| name   | inv_id | id   | inv_date   | pname    | quantity |
++--------+--------+------+------------+----------+----------+
+| sekhar |    504 | 1005 | 2022-03-18 | shampoo  |        5 |
+| sekhar |    505 | 1005 | 2022-02-18 | lipstick |        4 |
++--------+--------+------+------------+----------+----------+
+2 rows in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
