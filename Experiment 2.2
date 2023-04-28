@@ -2,5 +2,39 @@
                                         _____________________________________________________
                                         
                                         
+Q1:- Create a function to calculate price_range(low, medium, high) of each product. If price<=100 indicate as low, upto 500 indicate as medium, and above as high.
+
+mysql> delimiter //
+mysql> create function price_state(price int) returns varchar(10)
+    -> deterministic
+    -> begin
+    -> declare state varchar(20);
+    -> if price <=100 then
+    -> set state='low';
+    -> elseif price <=500 then
+    -> set state='medium';
+    -> elseif price>500 then
+    -> set state='high';
+    -> end if;
+    -> return(state);
+    -> end
+    -> //
+
+mysql> select pname,price,price_state(price) as 'state' from Product;//
++----------+-------+--------+
+| pname    | price | state  |
++----------+-------+--------+
+| soap     |    71 | low    |
+| shampoo  |   209 | medium |
+| knife    |   413 | medium |
+| Book     |    56 | low    |
+| pen      |    20 | low    |
+| lipstick |   412 | medium |
+| Bag      |   718 | high   |
++----------+-------+--------+
+7 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
 
 
