@@ -1,0 +1,107 @@
+                                               EXPERIMENT NO: 2.3	-PL/SQL PROGRAMS – TRIGGER
+                                           _________________________________________________________
+                                           
+Q1:- Create a trigger to handle updates to the customer table.
+
+mysql> delimiter **
+mysql> create table cust(id int,name varchar(25),address varchar(25),city varchar(25),ph_no bigint);
+    -> **
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> delimiter **
+mysql> create table cust(id int,name varchar(25),address varchar(25),city varchar(25),ph_no bigint);
+    -> **
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> create trigger updates
+    -> before update
+    -> on Customer for each row
+    -> begin
+    -> insert into cust
+    -> values(old.id,old.name,old.address,old.city,old.ph_no);
+    -> end
+    -> **
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from Customer;**
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kottayam   | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> update Customer set city="kozhikode" where id=1001;
+    -> **
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from cust;
+    -> **
++------+--------+----------+----------+------------+
+| id   | name   | address  | city     | ph_no      |
++------+--------+----------+----------+------------+
+| 1001 | Ayisha | arayckal | kottayam | 9293947481 |
++------+--------+----------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from Customer;**
++------+----------+-------------------+------------+------------+
+| id   | name     | address           | city       | ph_no      |
++------+----------+-------------------+------------+------------+
+| 1001 | Ayisha   | arayckal          | kozhikode  | 9293947481 |
+| 1002 | nileena  | aanaparayil(H)    | ernakulam  | 9593946481 |
+| 1003 | manu     | thottathil(H)     | alapuzha   | 9593946435 |
+| 1004 | jyothis  | mangalasseri(H)   | trivandome | 9273946435 |
+| 1005 | sekhar   | thekkeparambil(H) | kottayam   | 9273946430 |
+| 1006 | neenu    | cholayil(H)       | kozhikode  | 9837416455 |
+| 1007 | asokan   | thaiparambil(H)   | alapuzha   | 9984269227 |
+| 1008 | nadiya   | kayyalath(H)      | kannur     | NULL       |
+| 1009 | kochunni | kayamkulam(H)     | alapuzha   | NULL       |
++------+----------+-------------------+------------+------------+
+9 rows in set (0.00 sec)
+
+
+Q2:- Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+
+mysql> create trigger product_price
+    -> before insert
+    -> on Product
+    -> for each row
+    -> begin
+    -> if new.price <50 then
+    -> set new.price=35;
+    -> end if;
+    -> end
+    -> **
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into Product values(118,'lollipop',25);
+    -> **
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from Product;
+    -> **
++-----+----------+-------+
+| pid | pname    | price |
++-----+----------+-------+
+| 111 | soap     |    71 |
+| 112 | shampoo  |   209 |
+| 113 | knife    |   413 |
+| 114 | Book     |    56 |
+| 115 | pen      |    20 |
+| 116 | lipstick |   412 |
+| 117 | Bag      |   718 |
+| 118 | lollipop |    35 |
++-----+----------+-------+
+8 rows in set (0.00 sec)
+                                           
