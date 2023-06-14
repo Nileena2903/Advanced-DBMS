@@ -1,0 +1,214 @@
+                                                        Assignment 3: NoSQL-CRUD
+                                                    ________________________________
+                                                  
+                                                  
+                                                  
+Q1.Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+
+
+test> use INVOICE
+switched to db INVOICE
+
+INVOICE> db.createCollection("CUSTOMER")
+{ ok: 1 }
+INVOICE> db.createCollection("PRODUCT")
+{ ok: 1 }
+
+INVOICE> db.CUSTOMER.insertMany([{id:100,name:"nileena",age:24,city:"kozhikode",address:"kayyalath(H)"},{id:101,name:"divya",age:21,city:"kozhikode",address:"sreevalsam(H)"},{id:102,name:"ayisha",age:25,city:"kannur",address:"araykal(H)"},{id:103,name:"amal",age:23,city:"ernakulam",address:"thekkedath(H)"},{id:104,name:"anjana",age:22,city:"trivandrome",address:"kuttu nivas(H)"},{id:105,name:"sreya",age:20,city:"thrissur",address:"vadasseri(H)"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("6489893e7ef4394d68b1c73a"),
+    '1': ObjectId("6489893e7ef4394d68b1c73b"),
+    '2': ObjectId("6489893e7ef4394d68b1c73c"),
+    '3': ObjectId("6489893e7ef4394d68b1c73d"),
+    '4': ObjectId("6489893e7ef4394d68b1c73e"),
+    '5': ObjectId("6489893e7ef4394d68b1c73f")
+  }
+}
+INVOICE> db.PRODUCT.insertMany([{pid:500,pname:"pen",price:5},{pid:501,pname:"pencil",price:15},{pid:502,pname:"book",price:50},{pid:503,pname:"lipstick",price:420},{pid:504,pname:"lollipop",price:25},{pid:505,pname:"bread",price:65}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("64898a687ef4394d68b1c740"),
+    '1': ObjectId("64898a687ef4394d68b1c741"),
+    '2': ObjectId("64898a687ef4394d68b1c742"),
+    '3': ObjectId("64898a687ef4394d68b1c743"),
+    '4': ObjectId("64898a687ef4394d68b1c744"),
+    '5': ObjectId("64898a687ef4394d68b1c745")
+  }
+}
+
+
+
+
+Q2.Write a MongoDB query to find all documents from the collection CUSTOMER
+
+
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73a"),
+    id: 100,
+    name: 'nileena',
+    age: 24,
+    city: 'kozhikode',
+    address: 'kayyalath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'kozhikode',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+
+Q3.Write a MongoDB query to update the city in the collection CUSTOMER.
+
+
+INVOICE> db.CUSTOMER.updateMany({city:"kozhikode"},{$set:{city:"wayanad"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73a"),
+    id: 100,
+    name: 'nileena',
+    age: 24,
+    city: 'wayanad',
+    address: 'kayyalath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+
+Q4.Write a MongoDB query to delete the first matched document whose city is “wayanad”.   
+
+
+INVOICE> db.CUSTOMER.deleteOne({city:"wayanad"})
+{ acknowledged: true, deletedCount: 1 }
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+     
