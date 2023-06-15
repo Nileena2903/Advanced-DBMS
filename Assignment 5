@@ -1,2 +1,111 @@
                                       Assignment 5: NoSQL – AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
                                     _______________________________________________________________________
+
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+
+Q1.Write a MongoDB query to sort customer details in ascending order of their name.
+
+INVOICE> db.CUSTOMER.find().sort({name:1})
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+
+
+Q2.Write a MongoDB query to count number of customers in each city.
+
+
+INVOICE> db.CUSTOMER.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
+[
+  { _id: 'ernakulam', total: 1 },
+  { _id: 'wayanad', total: 1 },
+  { _id: 'trivandrome', total: 1 },
+  { _id: 'thrissur', total: 1 },
+  { _id: 'kannur', total: 1 }
+]
+
+
+Q3.Write a MongoDB query to find minimum and maximum age in each city.
+
