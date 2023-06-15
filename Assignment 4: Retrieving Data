@@ -1,17 +1,137 @@
                                                            Assignment 4: Retrieving Data
                                                         _____________________________________
                                                         
-                                                        
+
+INVOICE> db.CUSTOMER.find().pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
                                                         
 Q1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
 
 
+INVOICE> db.CUSTOMER.find({$or:[{'city':'ernakulam'},{'city':'trivandrome'}]}).pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73e"),
+    id: 104,
+    name: 'anjana',
+    age: 22,
+    city: 'trivandrome',
+    address: 'kuttu nivas(H)'
+  }
+]
 
 
-Q2.Write a MongoDB query to display all customer documents who have age >50.
+Q2.Write a MongoDB query to display all customer documents who have age >22.
 
 
-
+INVOICE> db.CUSTOMER.find({age:{$gt:22}}).pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  }
+]
 
 
 Q3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+
+INVOICE> db.CUSTOMER.find({city:{$ne:'trivandrome'}}).pretty()
+[
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73b"),
+    id: 101,
+    name: 'divya',
+    age: 21,
+    city: 'wayanad',
+    address: 'sreevalsam(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73c"),
+    id: 102,
+    name: 'ayisha',
+    age: 25,
+    city: 'kannur',
+    address: 'araykal(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73d"),
+    id: 103,
+    name: 'amal',
+    age: 23,
+    city: 'ernakulam',
+    address: 'thekkedath(H)'
+  },
+  {
+    _id: ObjectId("6489893e7ef4394d68b1c73f"),
+    id: 105,
+    name: 'sreya',
+    age: 20,
+    city: 'thrissur',
+    address: 'vadasseri(H)'
+  }
+]
+
+
