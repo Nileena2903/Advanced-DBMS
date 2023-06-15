@@ -1,0 +1,17 @@
+                                                           Assignment 4: Retrieving Data
+                                                        _____________________________________
+                                                        
+                                                        
+                                                        
+Q1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
+
+
+
+
+Q2.Write a MongoDB query to display all customer documents who have age >50.
+
+
+
+
+
+Q3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
