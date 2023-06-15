@@ -109,3 +109,12 @@ INVOICE> db.CUSTOMER.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
 
 Q3.Write a MongoDB query to find minimum and maximum age in each city.
 
+
+INVOICE> db.CUSTOMER.aggregate([{$group:{_id:"$city",max_age:{$max:"$age"},min_age:{$min:"$age"}}}])
+[
+  { _id: 'ernakulam', max_age: 23, min_age: 23 },
+  { _id: 'wayanad', max_age: 21, min_age: 21 },
+  { _id: 'trivandrome', max_age: 22, min_age: 22 },
+  { _id: 'thrissur', max_age: 20, min_age: 20 },
+  { _id: 'kannur', max_age: 25, min_age: 25 }
+]
