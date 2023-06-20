@@ -33,11 +33,49 @@ local     72.00 KiB
 
 Q2.Write a MongoDB query to create the backup for the INVOICE database.
 
+ksb@ksb-OptiPlex-3060:~$ mongodump --db INVOICE
+2023-06-20T12:50:31.677+0530	writing INVOICE.PRODUCT to dump/INVOICE/PRODUCT.bson
+2023-06-20T12:50:31.678+0530	writing INVOICE.CUSTOMER to dump/INVOICE/CUSTOMER.bson
+2023-06-20T12:50:31.803+0530	done dumping INVOICE.CUSTOMER (5 documents)
+2023-06-20T12:50:31.874+0530	done dumping INVOICE.PRODUCT (6 documents)
+2023-06-20T12:50:31.892+0530	writing INVOICE.customer to dump/INVOICE/customer.bson
+2023-06-20T12:50:31.894+0530	done dumping INVOICE.customer (2 documents)
 
 
 
 
 Q3.Write a MongoDB query to restore a particular database or a collection.
 
+test> use INVOICE
+switched to db INVOICE
+INVOICE> db.dropDatabase()
+{ ok: 1, dropped: 'INVOICE' }
 
-                                          
+INVOICE> show dbs
+admin   132.00 KiB
+config   72.00 KiB
+local    72.00 KiB
+
+ksb@ksb-OptiPlex-3060:~$ mongorestore --db INVOICE dump/INVOICE
+2023-06-20T12:55:47.417+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2023-06-20T12:55:47.417+0530	building a list of collections to restore from dump/INVOICE dir
+2023-06-20T12:55:47.436+0530	reading metadata for INVOICE.customer from dump/INVOICE/customer.metadata.json
+2023-06-20T12:55:47.436+0530	reading metadata for INVOICE.CUSTOMER from dump/INVOICE/CUSTOMER.metadata.json
+2023-06-20T12:55:47.436+0530	reading metadata for INVOICE.PRODUCT from dump/INVOICE/PRODUCT.metadata.json
+2023-06-20T12:55:47.897+0530	restoring INVOICE.CUSTOMER from dump/INVOICE/CUSTOMER.bson
+2023-06-20T12:55:47.945+0530	finished restoring INVOICE.CUSTOMER (5 documents, 0 failures)
+2023-06-20T12:55:48.033+0530	restoring INVOICE.PRODUCT from dump/INVOICE/PRODUCT.bson
+2023-06-20T12:55:48.070+0530	finished restoring INVOICE.PRODUCT (6 documents, 0 failures)
+2023-06-20T12:55:48.147+0530	restoring INVOICE.customer from dump/INVOICE/customer.bson
+2023-06-20T12:55:48.166+0530	finished restoring INVOICE.customer (2 documents, 0 failures)
+2023-06-20T12:55:48.166+0530	no indexes to restore for collection INVOICE.customer
+2023-06-20T12:55:48.166+0530	no indexes to restore for collection INVOICE.CUSTOMER
+2023-06-20T12:55:48.166+0530	no indexes to restore for collection INVOICE.PRODUCT
+2023-06-20T12:55:48.166+0530	13 document(s) restored successfully. 0 document(s) failed to restore.
+
+test> show dbs
+INVOICE  120.00 KiB
+admin    132.00 KiB
+config   108.00 KiB
+local     72.00 KiB
+
