@@ -15,7 +15,7 @@ INVOICE> db.CUSTOMER.getIndexes()
   { v: 2, key: { customer_name: 1 }, name: 'customer_name_1' }
 ]
 
-
+//VERIFIED
 Q2. Create two MongoDB replication servers and do the necessary operations.
 
 
