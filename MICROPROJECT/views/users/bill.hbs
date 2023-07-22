@@ -1,0 +1,157 @@
+<div class="page-content-wrapper pb-3">
+    <div class="shop-pagination pb-3">
+        <div class="container-lg">
+            <div class="card">
+                <div class="card-body p-2">
+                    <a href="/home" class="btn btn-info">Back to home</a>
+                    <a href="/cart" class="btn btn-success">Items in your bag : <b><span class="ms-1 text-white"
+                                id="cart-count">{{cartCount}}</span></b>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Products-->
+    <div class="top-products-area">
+        <div class="container-lg">
+            <div class="row g-3">
+
+
+                <!-- Single Top Product Card-->
+                {{#each products}}
+                <div class="col-6 col-sm-4 col-lg-3">
+                    <div class="card single-product-card">
+                        <div class="card-body p-3">
+                            <!-- Product Title--><a class="product-title d-block text-truncate"
+                                href="#!">{{this.Name}}</a>
+                            <!-- Product Price-->
+                            <p class="sale-price" style="margin-bottom: 4px;">{{this.Price}}/-
+                            <p>Avail Stock : {{this.Quantity}}</p>
+                            </p>
+                            <button class="add-to-cart-btn btn btn-primary btn-sm"
+                                onclick="addToCart('{{this._id}}')">Add
+                                to
+                                Bag</button>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Nav-->
+<div class="footer-nav-area" id="footerNav">
+    <div class="container px-0">
+        <!-- Paste your Footer Content from here-->
+        <!-- Footer Content-->
+        <div class="footer-nav position-relative">
+            <ul class="h-100 d-flex align-items-center justify-content-center ps-0">
+                <a href="/cart" class="btn btn-dark btn-lg" style="width: 95%;">Next</a>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Get all the "Add to Cart" buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    // Add a click event listener to each button
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Change the button color
+            button.classList.add('added');
+
+            // Change the button text
+            button.textContent = 'Item added!';
+            button.style.backgroundColor = "#2ecc4a";
+            button.style.border = "0px";
+
+
+            const svgIcon = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg> `;
+
+            // Add a class to show the "Added!" text
+            const addedText = document.createElement('span');
+            addedText.classList.add('added-text');
+            button.insertAdjacentHTML('afterbegin', svgIcon);
+            button.appendChild(addedText);
+
+            // Disable the button to prevent multiple clicks
+            button.disabled = true;
+        });
+    });
+
+</script>
+<script>
+    function addToCart(productId) {
+        $.ajax({
+            url: "/add-to-cart/" + productId,
+            method: "get",
+            success: (response) => {
+                if (response.status) {
+
+                    Swal.fire({
+                        toast: true,
+                        icon: 'success',
+                        customClass: 'my',
+                        title: response.message,
+                        animation: true,
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        iconColor: "#fff",
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    let count = $("#cart-count").html();
+                    count = parseInt(count) + 1;
+                    $("#cart-count").html(count);
+                } else {
+                    Swal.fire({
+                        toast: true,
+                        icon: 'error',
+                        title: response.message,
+                        animation: true,
+                        position: 'top-right',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        iconColor: "#fff",
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    window.location = "/signin";
+                }
+            },
+        });
+    }
+</script>
+
+<script>
+    function addToCart(productId) {
+        $.ajax({
+            url: "/add-to-cart/" + productId,
+            method: "get",
+            success: (response) => {
+                if (response.status) {
+                    let count = $("#cart-count").html();
+                    count = parseInt(count) + 1;
+                    $("#cart-count").html(count);
+                }
+            },
+        });
+    }
+</script>

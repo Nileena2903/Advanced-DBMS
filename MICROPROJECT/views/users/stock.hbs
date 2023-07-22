@@ -1,0 +1,55 @@
+<div class="page-content-wrapper ">
+
+
+
+
+
+    <div class="container">
+        <center>
+            <h3>Manage Items</h3>
+        </center>
+        <a href="/home" class="btn btn-info mb-3 mt-3">Back to main</a>
+        <a href="/add-stock" class="btn btn-dark mb-3 mt-3">Add a Product</a>
+        <div class="card">
+            <div class="card-body">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Avaliable Stock</th>
+                            <th>Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each products}}
+                        <tr>
+                            <td>{{incremented @index}}</td>
+                            <td>
+                                <font color="black"><b>{{this.Name}}</b></font>
+                            </td>
+                            <td>
+                                <font color="primary"><b>{{this.Price}}/-</b></font>
+                            </td>
+                            <td class="text-info">
+                                <b>{{this.Quantity}} KG</b>
+                            </td>
+                            <td>
+                                <a href="/delete-stock/{{this._id}}"
+                                    onclick="return confirm('Are You Sure to Delete This Product ?')"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                        class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                    </svg></a>
+
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

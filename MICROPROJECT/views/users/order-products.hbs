@@ -1,0 +1,67 @@
+<div class="page-content-wrapper py-3">
+    <div class="container">
+        <div class="pb-2">
+            <div class="card">
+                <div class="card-body p-2">
+                    <a href="/orders" class="btn btn-info">Back to home</a>
+                </div>
+            </div>
+        </div>
+        <div class="card invoice-card shadow">
+            <div class="card-body">
+                <!-- Download Invoice-->
+                <div class="download-invoice text-end mb-3">
+
+                    <a class="btn btn-sm btn-danger" onclick="printScreen()"><i class="fa fa-print me-2"></i>Print</a>
+                </div>
+                <!-- Invoice Info-->
+                <div class="invoice-info mb-4">
+                    <h5 class="mb-1">Customer Name : <b>{{order.orderObject.deliveryDetails.name}}</b></h5>
+                    <p class="mb-0">Date : <b>{{order.orderObject.date}}</b></p>
+                </div>
+                <!-- Invoice Table-->
+                <div class="invoice-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered caption-top">
+                            <caption>List of products</caption>
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sl.</th>
+                                    <th>Item Name</th>
+                                    <th>Qty</th>
+                                    <th class="text-end">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                <tr>
+                                    <td>{{incremented @index}}</td>
+                                    <td>{{this.product.Name}}</td>
+                                    <td>{{this.quantity}}</td>
+                                    <td class="text-end">₹{{this.product.Price}}</td>
+                                </tr>
+                                {{/each}}
+
+
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td class="text-end" colspan="3"><b>Total (Qty x Price/Item) :</b></td>
+                                    <td class="text-end"><b>₹{{order.orderObject.totalAmount}}</b></td>
+                                </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function printScreen() {
+        window.print();
+    }
+</script>
